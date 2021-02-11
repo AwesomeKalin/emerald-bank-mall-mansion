@@ -1,0 +1,12 @@
+name: EmeraldBank
+version: @version@
+main: com.github.awesomekalin.emeraldbank.Main
+api-version: 1.16
+load: STARTUP
+authors: [ AwesomeKalin55 ]
+description: A bank for your emeralds
+website: github.com/AwesomeKalin/emerald-bank-mall-mansion
+commands:
+  emeraldbank:
+    description: Main command
+    aliases: [eb, emerald, bank, banking]
