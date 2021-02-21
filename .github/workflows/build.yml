@@ -16,8 +16,7 @@ jobs:
               
             - name: Build with Gradle
               run: |
-                cd /home/runner/work/emerald-bank-mall-mansion/emerald-bank-mall-mansion
-                gradlew build
+                /home/runner/work/emerald-bank-mall-mansion/emerald-bank-mall-mansion/gradlew build
               
             - name: Upload Artifact
               uses: actions/upload-artifact@v2
