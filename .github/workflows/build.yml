@@ -17,6 +17,6 @@ jobs:
               
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
-            with:
-                name: EmeraldBank Plugin
-                path: build/lib/*.jar
+        with:
+            name: EmeraldBank Plugin
+            path: build/lib/*.jar
