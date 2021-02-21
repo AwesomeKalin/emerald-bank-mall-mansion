@@ -1,6 +1,6 @@
 # The place for the banks created on the server. You should NEVER directly edit from this file!
 
 banks:
-  names: []
-  emeralds: []
-  iron: []
+  names: ["test-dont-delete"]
+  emeralds: [0]
+  iron: [0]

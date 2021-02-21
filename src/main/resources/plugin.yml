@@ -10,3 +10,9 @@ commands:
   emeraldbank:
     description: Main command
     aliases: [eb, emerald, bank, banking]
+  emeraldbank help:
+    description: Help command for Emerald Bank
+    aliases: [eb help, emerald help, bank help, banking help]
+  emeraldbank new:
+    description: Creates a new bank
+    aliases: [eb new, emerald new, bank new, banking new]

@@ -25,25 +25,32 @@ public class Commands implements CommandExecutor {
             return true;
         }
 
-        if (args[0].equals("help")) {
+        if (args[0].equals("emerald.help")) {
             if(p.hasPermission("help")) {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6EmeraldBank Help!"));
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Currently nothing"));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb help: Opens this menu"));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb new: Creates a new bank"));
                 return true;
             } else {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4You do not have permission to run this command! If you think this is a mistake, please contact the server admin."));
             }
         } else if (args[0].equals("new")) {
-            if(p.hasPermission("create")) {
+            if(p.hasPermission("emerald.create")) {
                 if (args[1] == null || args[1].length() == 0) {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires name, do /eb for help"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires name, do /eb help"));
                     return true;
                 }
-
+                Main.banks.add(args[1]);
+                Main.emeralds.add(0);
+                Main.iron.add(0);
+                Main.getBankConfig().set("banks.names", Main.banks);
+                Main.getBankConfig().set("banks.emeralds", Main.emeralds);
+                Main.getBankConfig().set("banks.iron", Main.iron);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Bank created!"));
             }
         }
         else {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Invalid command!"));
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Invalid command! Please do /eb help!"));
             return true;
         }
         return false;
