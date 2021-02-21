@@ -43,9 +43,7 @@ public class Commands implements CommandExecutor {
                 Main.banks.add(args[1]);
                 Main.emeralds.add(0);
                 Main.iron.add(0);
-                Main.getBankConfig().set("banks.names", Main.banks);
-                Main.getBankConfig().set("banks.emeralds", Main.emeralds);
-                Main.getBankConfig().set("banks.iron", Main.iron);
+                Main.save();
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Bank created!"));
             }
         }

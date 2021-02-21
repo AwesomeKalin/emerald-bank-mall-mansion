@@ -1,6 +1,5 @@
 package com.github.awesomekalin.emeraldbank;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -8,8 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public final class Main extends JavaPlugin {
@@ -17,8 +14,8 @@ public final class Main extends JavaPlugin {
     public static List<String> banks;
     public static List<Integer> emeralds;
     public static List<Integer> iron;
-    private static File bankFile;
-    private static FileConfiguration bankConfig;
+    public static File bankFile;
+    public static FileConfiguration bankConfig;
 
     @Override
     public void onEnable() { System.out.println("[EmeraldBank] Welcome to EmeraldBank! I hope you are ready to start banking with those emeralds!");
@@ -38,16 +35,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        getBankConfig().set("banks.names", banks);
-        getBankConfig().set("banks.emeralds", emeralds);
-        getBankConfig().set("banks.iron", iron);
-        try {
-            bankConfig.save(bankFile);
-            System.out.println("[EmeraldBank] Config Saved!");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("[EmeraldBank] Config Save Failed!!!");
-        }
+        save();
         System.out.println("[EmeraldBank] Bank again soon!");
     }
 
@@ -79,6 +67,19 @@ public final class Main extends JavaPlugin {
             bankConfig.load(bankFile);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void save() {
+        getBankConfig().set("banks.names", banks);
+        getBankConfig().set("banks.emeralds", emeralds);
+        getBankConfig().set("banks.iron", iron);
+        try {
+            bankConfig.save(bankFile);
+            System.out.println("[EmeraldBank] Config Saved!");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("[EmeraldBank] Config Save Failed!!!");
         }
     }
 
