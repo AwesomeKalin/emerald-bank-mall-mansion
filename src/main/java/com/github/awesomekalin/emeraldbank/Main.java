@@ -59,7 +59,7 @@ public final class Main extends JavaPlugin {
         bankFile = new File(getDataFolder(), "bank.yml");
         if (!bankFile.exists()) {
             bankFile.getParentFile().mkdirs();
-            saveResource("banks.yml", false);
+            saveResource("bank.yml", false);
         }
 
         bankConfig = new YamlConfiguration();
