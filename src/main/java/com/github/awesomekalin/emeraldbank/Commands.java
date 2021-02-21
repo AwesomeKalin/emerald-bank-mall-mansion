@@ -25,14 +25,15 @@ public class Commands implements CommandExecutor {
             return true;
         }
 
-        if (args[0].equals("emerald.help")) {
-            if(p.hasPermission("help")) {
+        if (args[0].equals("help")) {
+            if(p.hasPermission("emerald.help")) {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6EmeraldBank Help!"));
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb help: Opens this menu"));
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb new: Creates a new bank"));
                 return true;
             } else {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4You do not have permission to run this command! If you think this is a mistake, please contact the server admin."));
+                return true;
             }
         } else if (args[0].equals("new")) {
             if(p.hasPermission("emerald.create")) {
@@ -45,12 +46,14 @@ public class Commands implements CommandExecutor {
                 Main.iron.add(0);
                 Main.save();
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Bank created!"));
+            } else {
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4You do not have permission to run this command! If you think this is a mistake, please contact the server admin."));
             }
+            return true;
         }
         else {
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Invalid command! Please do /eb help!"));
             return true;
         }
-        return false;
     }
 }
