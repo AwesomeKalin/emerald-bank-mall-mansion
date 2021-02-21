@@ -1,0 +1,24 @@
+name: Build EmeraldBank
+on: push
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Update Apt Repo
+              run: sudo apt-get update
+              
+            - name: Install OpenJDK
+              run: sudo apt-get install openjdk-8-jdk
+              
+            - name: Checkout repo
+              uses: actions/checkout@v2
+              
+            - name: Build with Gradle
+              run: gradlew build
+              
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v2
+              with:
+                name: EmeraldBank Plugin
+                path: build/lib/*.jar
