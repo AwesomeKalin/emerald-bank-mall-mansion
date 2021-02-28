@@ -33,6 +33,7 @@ public final class Main extends JavaPlugin {
         System.out.println("[EmeraldBank] Preparing Metrics!");
         int pluginId = 10519;
         Metrics metrics = new Metrics(this, pluginId);
+        System.out.println("[EmeraldBank] Metrics Preapared!");
     }
 
     @Override
