@@ -147,6 +147,57 @@ public class Commands implements CommandExecutor {
                     return true;
                 }
                 break;
+            case "atm":
+                if (args[1] == null || args[1].length() == 0){
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires bank name, do /eb help"));
+                    return true;
+                }
+                if (args[2] == null || args[2].length() == 0){
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires emerald amount, do /eb help"));
+                    return true;
+                }
+                if (!IsInt.isInt(args[2])){
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
+                    return true;
+                }
+                int place = 0;
+                int i = 0;
+                boolean found = false;
+                while (!found) {
+                    if (Main.banks.get(i).equals(args[1])) {
+                        place = i;
+                        found = true;
+                    } else {
+                        i += 1;
+                    }
+                }
+                Main.emeralds.set(place, Main.emeralds.get(place) - Integer.parseInt(args[2]));
+                Main.save();
+                ItemStack stack = new ItemStack(Material.EMERALD, Integer.parseInt(args[2]));
+                p.getInventory().addItem(stack);
+
+                if (args[3] != null || args[3].length() != 0){
+                    if (!IsInt.isInt(args[3])){
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
+                        return true;
+                    }
+                    int place3 = 0;
+                    int i3 = 0;
+                    boolean found3 = false;
+                    while (!found3) {
+                        if (Main.banks.get(i).equals(args[1])) {
+                            place3 = i3;
+                            found3 = true;
+                        } else {
+                            i3 += 1;
+                        }
+                    }
+                    Main.iron.set(place3, Main.emeralds.get(place3) - Integer.parseInt(args[3]));
+                    Main.save();
+                    ItemStack stack2 = new ItemStack(Material.IRON_INGOT, Integer.parseInt(args[3]));
+                    p.getInventory().addItem(stack2);
+                }
+                return true;
             default:
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Invalid command! Please do /eb help!"));
                 return true;
