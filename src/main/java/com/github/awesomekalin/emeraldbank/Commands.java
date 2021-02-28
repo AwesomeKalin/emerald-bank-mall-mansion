@@ -1,5 +1,6 @@
 package com.github.awesomekalin.emeraldbank;
 
+import com.github.awesomekalin.emeraldbank.api.IsInt;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -33,12 +34,11 @@ public class Commands implements CommandExecutor {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6EmeraldBank Help!"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb help: Opens this menu"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb new [name]: Creates a new bank"));
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb deposit [name]: Deposit emeralds or iron to the specified bank"));
-                    return true;
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb deposit [name] [optional: emeralds] [optional: iron]: Deposit emeralds or iron to the specified bank. If no amount is specified, then the amount of emeralds/iron you are holding is deposited"));
                 } else {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4You do not have permission to run this command! If you think this is a mistake, please contact the server admin."));
-                    return true;
                 }
+                return true;
             case "new":
                 if (p.hasPermission("emerald.create")) {
                     if (args[1] == null || args[1].length() == 0) {
@@ -79,6 +79,7 @@ public class Commands implements CommandExecutor {
                                 Main.emeralds.set(place, amount + Main.emeralds.get(place));
                                 Main.save();
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Emeralds added!"));
+                                item.setType(Material.AIR);
                                 return true;
                             } else if (item.getType().equals(Material.IRON_INGOT)) {
                                 int amount = item.getAmount();
@@ -96,7 +97,48 @@ public class Commands implements CommandExecutor {
                                 Main.iron.set(place, amount + Main.iron.get(place));
                                 Main.save();
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Iron added!"));
+                                item.setType(Material.AIR);
                                 return true;
+                            }
+                        } else {
+                            if (IsInt.isInt(args[2])) {
+                                int emeralds = Integer.parseInt(args[2]);
+                                int place = 0;
+                                int i = 0;
+                                boolean found = false;
+                                while (!found) {
+                                    if (Main.banks.get(i).equals(args[1])) {
+                                        place = i;
+                                        found = true;
+                                    } else {
+                                        i += 1;
+                                    }
+                                }
+                                Main.emeralds.set(place, emeralds + Main.emeralds.get(place));
+                                Main.save();
+                                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Emeralds added!"));
+                            }
+                            if (args[3] == null || args[3].length() == 0) {
+                                return true;
+                            } else {
+                                if (IsInt.isInt(args[3])) {
+                                    int iron = Integer.parseInt(args[3]);
+                                    int place = 0;
+                                    int i = 0;
+                                    boolean found = false;
+                                    while (!found) {
+                                        if (Main.banks.get(i).equals(args[1])) {
+                                            place = i;
+                                            found = true;
+                                        } else {
+                                            i += 1;
+                                        }
+                                    }
+                                    Main.iron.set(place, iron + Main.emeralds.get(place));
+                                    Main.save();
+                                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Iron added!"));
+                                    return true;
+                                }
                             }
                         }
                     }
