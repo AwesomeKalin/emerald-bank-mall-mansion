@@ -30,6 +30,9 @@ public final class Main extends JavaPlugin {
         iron = GetBankIron();
         System.out.println("[EmeraldBank] Stop ignoring error messages for here until said so!");
         System.out.println("[EmeraldBank] Banks prepared!");
+        System.out.println("[EmeraldBank] Preparing Metrics!");
+        int pluginId = 10519;
+        Metrics metrics = new Metrics(this, pluginId);
     }
 
     @Override
