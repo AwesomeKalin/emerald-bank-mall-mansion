@@ -35,6 +35,8 @@ public class Commands implements CommandExecutor {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb help: Opens this menu"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb new [name]: Creates a new bank"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb deposit [name] [optional: emeralds] [optional: iron]: Deposit emeralds or iron to the specified bank. If no amount is specified, then the amount of emeralds/iron you are holding is deposited"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb atm [name] [emeralds] [optional: iron]: Gives you the specified amount of emeralds/iron from the specified bank. If you don't want emeralds, put 0"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/eb amount [name]: Shows the amount of emeralds and iron a bank has"));
                 } else {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4You do not have permission to run this command! If you think this is a mistake, please contact the server admin."));
                 }
@@ -148,56 +150,82 @@ public class Commands implements CommandExecutor {
                 }
                 break;
             case "atm":
-                if (args[1] == null || args[1].length() == 0){
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires bank name, do /eb help"));
-                    return true;
-                }
-                if (args[2] == null || args[2].length() == 0){
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires emerald amount, do /eb help"));
-                    return true;
-                }
-                if (!IsInt.isInt(args[2])){
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
-                    return true;
-                }
-                int place = 0;
-                int i = 0;
-                boolean found = false;
-                while (!found) {
-                    if (Main.banks.get(i).equals(args[1])) {
-                        place = i;
-                        found = true;
-                    } else {
-                        i += 1;
+                if(p.hasPermission("emerald.atm")) {
+                    if (args[1] == null || args[1].length() == 0) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires bank name, do /eb help"));
+                        return true;
                     }
-                }
-                Main.emeralds.set(place, Main.emeralds.get(place) - Integer.parseInt(args[2]));
-                Main.save();
-                ItemStack stack = new ItemStack(Material.EMERALD, Integer.parseInt(args[2]));
-                p.getInventory().addItem(stack);
-
-                if (args[3] != null || args[3].length() != 0){
-                    if (!IsInt.isInt(args[3])){
+                    if (args[2] == null || args[2].length() == 0) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires emerald amount, do /eb help"));
+                        return true;
+                    }
+                    if (!IsInt.isInt(args[2])) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
                         return true;
                     }
-                    int place3 = 0;
-                    int i3 = 0;
-                    boolean found3 = false;
-                    while (!found3) {
+                    int place = 0;
+                    int i = 0;
+                    boolean found = false;
+                    while (!found) {
                         if (Main.banks.get(i).equals(args[1])) {
-                            place3 = i3;
-                            found3 = true;
+                            place = i;
+                            found = true;
                         } else {
-                            i3 += 1;
+                            i += 1;
                         }
                     }
-                    Main.iron.set(place3, Main.emeralds.get(place3) - Integer.parseInt(args[3]));
+                    Main.emeralds.set(place, Main.emeralds.get(place) - Integer.parseInt(args[2]));
                     Main.save();
-                    ItemStack stack2 = new ItemStack(Material.IRON_INGOT, Integer.parseInt(args[3]));
-                    p.getInventory().addItem(stack2);
+                    ItemStack stack = new ItemStack(Material.EMERALD, Integer.parseInt(args[2]));
+                    p.getInventory().addItem(stack);
+
+                    if (args[3] != null || args[3].length() != 0) {
+                        if (!IsInt.isInt(args[3])) {
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
+                            return true;
+                        }
+                        int place3 = 0;
+                        int i3 = 0;
+                        boolean found3 = false;
+                        while (!found3) {
+                            if (Main.banks.get(i).equals(args[1])) {
+                                place3 = i3;
+                                found3 = true;
+                            } else {
+                                i3 += 1;
+                            }
+                        }
+                        Main.iron.set(place3, Main.emeralds.get(place3) - Integer.parseInt(args[3]));
+                        Main.save();
+                        ItemStack stack2 = new ItemStack(Material.IRON_INGOT, Integer.parseInt(args[3]));
+                        p.getInventory().addItem(stack2);
+                    }
+                    return true;
                 }
-                return true;
+            case "amount":
+                if (p.hasPermission("emerald.amount")) {
+                    if (args[1] == null || args[1].length() == 0) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires bank name, do /eb help"));
+                        return true;
+                    }
+                    int place = 0;
+                    int i = 0;
+                    boolean found = false;
+                    while (!found) {
+                        if (Main.banks.get(i).equals(args[1])) {
+                            place = i;
+                            found = true;
+                        } else {
+                            i += 1;
+                        }
+                    }
+                    Integer emeralds = Main.emeralds.get(place);
+                    Integer iron = Main.iron.get(place);
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aInformation for bank, " + args[1] + ":"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aEmeralds: " + emeralds));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aIron: " + iron));
+                    return true;
+                }
             default:
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Invalid command! Please do /eb help!"));
                 return true;
