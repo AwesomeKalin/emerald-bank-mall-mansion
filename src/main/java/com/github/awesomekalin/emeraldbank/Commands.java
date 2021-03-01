@@ -9,6 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Commands implements CommandExecutor {
 
     @Override
@@ -22,9 +25,10 @@ public class Commands implements CommandExecutor {
         if(!command.getName().equalsIgnoreCase("emeraldbank")) {
             return false;
         }
-        ArrayList,String.
+        ArrayList<String> tempArgs = new ArrayList<>(Arrays.asList(args));
+        int argsLength = tempArgs.size();
 
-        if (args.equals(null) || args.length == 0) {
+        if (argsLength < 1) {
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires arguments, do /eb for help"));
             return true;
         }
@@ -44,7 +48,7 @@ public class Commands implements CommandExecutor {
                 return true;
             case "new":
                 if (p.hasPermission("emerald.create")) {
-                    if (args[1].equals(null) || args[1].length() == 0) {
+                    if (argsLength < 2) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires name, do /eb help"));
                         return true;
                     }
@@ -59,11 +63,11 @@ public class Commands implements CommandExecutor {
                 return true;
             case "deposit":
                 if (p.hasPermission("emerald.deposit")) {
-                    if (args[1].equals(null) || args[1].length() == 0) {
+                    if (argsLength < 2) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires bank name, do /eb help"));
                         return true;
                     } else {
-                        if (args[2].equals(null) || args[2].length() == 0) {
+                        if (argsLength < 3) {
                             ItemStack item = p.getInventory().getItemInMainHand();
                             if (item.getType().equals(Material.EMERALD)) {
                                 int amount = item.getAmount();
@@ -120,7 +124,7 @@ public class Commands implements CommandExecutor {
                                 Main.save();
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Emeralds added!"));
                             }
-                            if (args[3].equals(null) || args[3].length() == 0) {
+                            if (argsLength < 4) {
                                 return true;
                             } else {
                                 if (IsInt.isInt(args[3])) {
@@ -151,11 +155,11 @@ public class Commands implements CommandExecutor {
                 break;
             case "atm":
                 if(p.hasPermission("emerald.atm")) {
-                    if (args[1].equals(null) || args[1].length() == 0) {
+                    if (argsLength < 2) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires bank name, do /eb help"));
                         return true;
                     }
-                    if (args[2].equals(null) || args[2].length() == 0) {
+                    if (argsLength < 3) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires emerald amount, do /eb help"));
                         return true;
                     }
@@ -179,7 +183,7 @@ public class Commands implements CommandExecutor {
                     ItemStack stack = new ItemStack(Material.EMERALD, Integer.parseInt(args[2]));
                     p.getInventory().addItem(stack);
 
-                    if (args[3] != null || args[3].length() != 0) {
+                    if (argsLength < 4) {
                         if (!IsInt.isInt(args[3])) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
                             return true;
@@ -204,7 +208,7 @@ public class Commands implements CommandExecutor {
                 }
             case "amount":
                 if (p.hasPermission("emerald.amount")) {
-                    if (args[1].equals(null) || args[1].length() == 0) {
+                    if (argsLength < 2) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires bank name, do /eb help"));
                         return true;
                     }
