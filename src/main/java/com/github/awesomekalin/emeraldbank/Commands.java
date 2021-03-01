@@ -1,5 +1,6 @@
 package com.github.awesomekalin.emeraldbank;
 
+import com.github.awesomekalin.emeraldbank.api.GetBankPlace;
 import com.github.awesomekalin.emeraldbank.api.IsInt;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -71,54 +72,36 @@ public class Commands implements CommandExecutor {
                             ItemStack item = p.getInventory().getItemInMainHand();
                             if (item.getType().equals(Material.EMERALD)) {
                                 int amount = item.getAmount();
-                                int place = 0;
-                                int i = 0;
-                                boolean found = false;
-                                while (!found) {
-                                    if (Main.banks.get(i).equals(args[1])) {
-                                        place = i;
-                                        found = true;
-                                    } else {
-                                        i += 1;
-                                    }
+                                int place = GetBankPlace.getBankPlace(args[1]);
+                                if (place == -1) {
+                                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
+                                    return true;
                                 }
                                 Main.emeralds.set(place, amount + Main.emeralds.get(place));
                                 Main.save();
+                                p.getInventory().getItemInMainHand().setType(Material.AIR);
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Emeralds added!"));
-                                item.setType(Material.AIR);
                                 return true;
                             } else if (item.getType().equals(Material.IRON_INGOT)) {
                                 int amount = item.getAmount();
-                                int place = 0;
-                                int i = 0;
-                                boolean found = false;
-                                while (!found) {
-                                    if (Main.banks.get(i).equals(args[1])) {
-                                        place = i;
-                                        found = true;
-                                    } else {
-                                        i += 1;
-                                    }
+                                int place = GetBankPlace.getBankPlace(args[1]);
+                                if (place == -1) {
+                                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
+                                    return true;
                                 }
                                 Main.iron.set(place, amount + Main.iron.get(place));
                                 Main.save();
+                                p.getInventory().getItemInMainHand().setType(Material.AIR);
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Iron added!"));
-                                item.setType(Material.AIR);
                                 return true;
                             }
                         } else {
                             if (IsInt.isInt(args[2])) {
                                 int emeralds = Integer.parseInt(args[2]);
-                                int place = 0;
-                                int i = 0;
-                                boolean found = false;
-                                while (!found) {
-                                    if (Main.banks.get(i).equals(args[1])) {
-                                        place = i;
-                                        found = true;
-                                    } else {
-                                        i += 1;
-                                    }
+                                int place = GetBankPlace.getBankPlace(args[1]);
+                                if (place == -1) {
+                                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
+                                    return true;
                                 }
                                 Main.emeralds.set(place, emeralds + Main.emeralds.get(place));
                                 Main.save();
@@ -129,16 +112,10 @@ public class Commands implements CommandExecutor {
                             } else {
                                 if (IsInt.isInt(args[3])) {
                                     int iron = Integer.parseInt(args[3]);
-                                    int place = 0;
-                                    int i = 0;
-                                    boolean found = false;
-                                    while (!found) {
-                                        if (Main.banks.get(i).equals(args[1])) {
-                                            place = i;
-                                            found = true;
-                                        } else {
-                                            i += 1;
-                                        }
+                                    int place = GetBankPlace.getBankPlace(args[1]);
+                                    if (place == -1) {
+                                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
+                                        return true;
                                     }
                                     Main.iron.set(place, iron + Main.emeralds.get(place));
                                     Main.save();
@@ -167,16 +144,10 @@ public class Commands implements CommandExecutor {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
                         return true;
                     }
-                    int place = 0;
-                    int i = 0;
-                    boolean found = false;
-                    while (!found) {
-                        if (Main.banks.get(i).equals(args[1])) {
-                            place = i;
-                            found = true;
-                        } else {
-                            i += 1;
-                        }
+                    int place = GetBankPlace.getBankPlace(args[1]);
+                    if (place == -1) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
+                        return true;
                     }
                     Main.emeralds.set(place, Main.emeralds.get(place) - Integer.parseInt(args[2]));
                     Main.save();
@@ -188,18 +159,12 @@ public class Commands implements CommandExecutor {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
                             return true;
                         }
-                        int place3 = 0;
-                        int i3 = 0;
-                        boolean found3 = false;
-                        while (!found3) {
-                            if (Main.banks.get(i).equals(args[1])) {
-                                place3 = i3;
-                                found3 = true;
-                            } else {
-                                i3 += 1;
-                            }
+                        place = GetBankPlace.getBankPlace(args[1]);
+                        if (place == -1) {
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
+                            return true;
                         }
-                        Main.iron.set(place3, Main.emeralds.get(place3) - Integer.parseInt(args[3]));
+                        Main.iron.set(place, Main.emeralds.get(place) - Integer.parseInt(args[3]));
                         Main.save();
                         ItemStack stack2 = new ItemStack(Material.IRON_INGOT, Integer.parseInt(args[3]));
                         p.getInventory().addItem(stack2);
@@ -212,16 +177,10 @@ public class Commands implements CommandExecutor {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires bank name, do /eb help"));
                         return true;
                     }
-                    int place = 0;
-                    int i = 0;
-                    boolean found = false;
-                    while (!found) {
-                        if (Main.banks.get(i).equals(args[1])) {
-                            place = i;
-                            found = true;
-                        } else {
-                            i += 1;
-                        }
+                    int place = GetBankPlace.getBankPlace(args[1]);
+                    if (place == -1) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
+                        return true;
                     }
                     Integer emeralds = Main.emeralds.get(place);
                     Integer iron = Main.iron.get(place);
