@@ -79,7 +79,7 @@ public class Commands implements CommandExecutor {
                                 }
                                 Main.emeralds.set(place, amount + Main.emeralds.get(place));
                                 Main.save();
-                                p.getInventory().getItemInMainHand().setType(Material.AIR);
+                                p.getInventory().getItemInMainHand().setAmount(0);
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Emeralds added!"));
                                 return true;
                             } else if (item.getType().equals(Material.IRON_INGOT)) {
@@ -91,7 +91,7 @@ public class Commands implements CommandExecutor {
                                 }
                                 Main.iron.set(place, amount + Main.iron.get(place));
                                 Main.save();
-                                p.getInventory().getItemInMainHand().setType(Material.AIR);
+                                p.getInventory().getItemInMainHand().setAmount(0);
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Iron added!"));
                                 return true;
                             }
@@ -117,7 +117,7 @@ public class Commands implements CommandExecutor {
                                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
                                         return true;
                                     }
-                                    Main.iron.set(place, iron + Main.emeralds.get(place));
+                                    Main.iron.set(place, iron + Main.iron.get(place));
                                     Main.save();
                                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Iron added!"));
                                     return true;
@@ -164,7 +164,7 @@ public class Commands implements CommandExecutor {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
                             return true;
                         }
-                        Main.iron.set(place, Main.emeralds.get(place) - Integer.parseInt(args[3]));
+                        Main.iron.set(place, Main.iron.get(place) - Integer.parseInt(args[3]));
                         Main.save();
                         ItemStack stack2 = new ItemStack(Material.IRON_INGOT, Integer.parseInt(args[3]));
                         p.getInventory().addItem(stack2);
