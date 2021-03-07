@@ -22,18 +22,17 @@ public final class Main extends JavaPlugin {
         System.out.println("[EmeraldBank] Preparing commands");
         this.getCommand("emeraldbank").setExecutor(new Commands());
         System.out.println("[EmeraldBank] Commands prepared!");
-        System.out.println("[EmeraldBank] Preparing banks! PLEASE IGNORE ERROR MESSAGES UNTIL SAID SO! IT IS NOT A BUG!!!");
+        System.out.println("[EmeraldBank] Preparing banks!");
         // Plugin startup logic
         createBankConfig();
         banks = GetBankNames();
         emeralds = GetBankEmeralds();
         iron = GetBankIron();
-        System.out.println("[EmeraldBank] Stop ignoring error messages for here until said so!");
         System.out.println("[EmeraldBank] Banks prepared!");
         System.out.println("[EmeraldBank] Preparing Metrics!");
         int pluginId = 10519;
         Metrics metrics = new Metrics(this, pluginId);
-        System.out.println("[EmeraldBank] Metrics Preapared!");
+        System.out.println("[EmeraldBank] Metrics prepared!");
     }
 
     @Override
