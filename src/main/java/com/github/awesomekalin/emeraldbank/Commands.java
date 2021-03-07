@@ -155,16 +155,12 @@ public class Commands implements CommandExecutor {
                     p.getInventory().addItem(stack);
 
                     if (argsLength < 4) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cIf Statement!"));
                         if (!IsInt.isInt(args[3])) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
                             return true;
                         }
-                        int place2 = GetBankPlace.getBankPlace(args[1]);
-                        if (place2 == -1) {
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
-                            return true;
-                        }
-                        Main.iron.set(place2, Main.iron.get(place2) - Integer.parseInt(args[3]));
+                        Main.iron.set(place, Main.iron.get(place) - Integer.parseInt(args[3]));
                         Main.save();
                         ItemStack stack2 = new ItemStack(Material.IRON_INGOT, Integer.parseInt(args[3]));
                         p.getInventory().addItem(stack2);
