@@ -154,8 +154,7 @@ public class Commands implements CommandExecutor {
                     ItemStack stack = new ItemStack(Material.EMERALD, Integer.parseInt(args[2]));
                     p.getInventory().addItem(stack);
 
-                    if (argsLength < 4) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cIf Statement!"));
+                    if (argsLength == 4) {
                         if (!IsInt.isInt(args[3])) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
                             return true;
