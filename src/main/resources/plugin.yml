@@ -10,3 +10,24 @@ commands:
   emeraldbank:
     description: Main command
     aliases: [eb, emerald, bank, banking]
+
+permissions:
+  emerald.help:
+    description: Allows /eb help
+    default: true
+
+  emerald.create:
+    description: Allows /eb create
+    default: true
+
+  emerald.deposit:
+    description: Allows /eb deposit
+    default: true
+
+  emerald.atm:
+    description: Allows /eb atm
+    default: true
+
+  emerald.amount:
+    description: Allows /eb amount
+    default: true
