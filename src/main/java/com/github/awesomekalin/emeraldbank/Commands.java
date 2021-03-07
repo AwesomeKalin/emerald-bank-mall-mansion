@@ -159,12 +159,12 @@ public class Commands implements CommandExecutor {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cRequires integer, do /eb help"));
                             return true;
                         }
-                        place = GetBankPlace.getBankPlace(args[1]);
-                        if (place == -1) {
+                        int place2 = GetBankPlace.getBankPlace(args[1]);
+                        if (place2 == -1) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Bank doesn't exist!"));
                             return true;
                         }
-                        Main.iron.set(place, Main.iron.get(place) - Integer.parseInt(args[3]));
+                        Main.iron.set(place2, Main.iron.get(place2) - Integer.parseInt(args[3]));
                         Main.save();
                         ItemStack stack2 = new ItemStack(Material.IRON_INGOT, Integer.parseInt(args[3]));
                         p.getInventory().addItem(stack2);
