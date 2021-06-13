@@ -17,14 +17,12 @@ And more!
 API:
 
 GetBankPlace:
-[code=Java]GetBankPlace.getBankPlace(bankName);[/code]
+GetBankPlace.getBankPlace(bankName);
 IsInt:
-[code=Java]IsInt.isInt(a string);[/code]
+IsInt.isInt(a string);
 
 
-
-
-Please note that there is no maven repo yet as there isn't much in the api
+For a maven repo, please check GitHub packages!
 
 Commands:
 /eb help: Opens the help menu
@@ -43,7 +41,7 @@ emerald.amount: Allows /eb amount
 Version:
 This was made for Paper 1.16.1, but should work with bukkit and spigot too. If you want me to test a specific version of bukkit/spigot/paper, please write a comment
 
-Making a Minecraft Plugin tutorial pluginfor this plugin? Please, tell me that you made it so I can put it here!
+Making a Minecraft Plugin tutorial plugin for this plugin? Please, tell me that you made it so I can put it here!
 
 bStats:
 This project uses bStats for anonymous statistics. If you want to see the statistics go to: [bStats - EmeraldBankMM](https://bstats.org/plugin/bukkit/EmeraldBankMM/10519)
